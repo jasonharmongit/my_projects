@@ -1,3 +1,11 @@
+"""
+Sep, 2023
+In the Python course that I was the Teacher Assistant for, one of the quizzes had an open-ended question where students
+pasted in a history of commands to prove they used them properly. It was hard, as a human, to keep track of all the commands
+they had used, and took a long time (2 mins per question). I applied the browser automation knowledge I had gained to 
+automatically grade these questions and even populate a comment on the assignment, so it could be done in 5 seconds.
+"""
+
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
@@ -18,7 +26,8 @@ class Driver():
         self._driver = webdriver.Chrome(options=self._chrome_options)
         
         self._driver.get('https://usu.instructure.com/')
-        self._driver.find_element(By.XPATH,'//*[@name="loginfmt"]').send_keys('a02305364@aggies.usu.edu')
+        username = ''
+        self._driver.find_element(By.XPATH,'//*[@name="loginfmt"]').send_keys(username)
         self._driver.quit
 
     def connect(self):

@@ -1,3 +1,7 @@
+"""
+Not my code. This was provided to us during one of my Python courses at USU. Used in print_march_madness.py.
+"""
+
 def display(root):
         lines, *_ = display_aux(root)
         for line in lines:

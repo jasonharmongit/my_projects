@@ -1,3 +1,9 @@
+"""
+Mar, 2023
+A project built for one of the Python courses I took at USU. This program calls an API with crypto currency exchange rates in JSON format, 
+uses networkx to create a directed graph of the currencies, then finds the best arbitrage opportunity and its magnitude.
+"""
+
 import requests
 import json
 import time
@@ -54,7 +60,8 @@ nx.draw_networkx_edge_labels(g, pos, edge_labels={(u, v): d['weight'] for u, v, 
 nx.draw_networkx_labels(g, pos)
 
 # show the plot
-plt.savefig("/Users/jasonharmon/Documents/DATA 5500/covid/crypto_graph.png")
+filepath = ''
+plt.savefig(filepath + "/crypto_graph.png")
 
 # initialize storage variables
 greatest_weight = -99999999

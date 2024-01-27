@@ -1,3 +1,9 @@
+"""
+Feb, 2023
+A project built for one of the Python courses I took at USU. This program calls a Web API containing historical COVID-19
+data about the United States in JSON format, parses it, then calculates a variety of metrics regarding certain States.
+"""
+
 import requests
 import json
 import numpy as np
@@ -16,7 +22,8 @@ for state in states: #repeat calculations for each state in the list
     url = 'https://api.covidtracking.com/v1/states/' + state + '/daily.json'
     request = requests.get(url)
     lst = json.loads(request.text)
-    json.dump(lst, open('/Users/jasonharmon/Documents/DATA 5500/covid/' + state + '.json', "w"), indent=1) #create json files
+    filepath = ''
+    json.dump(lst, open(filepath + '/covid/' + state + '.json', "w"), indent=1) #create json files
     
     #print state name
     name_key = "state"
@@ -115,4 +122,4 @@ for state in states: #repeat calculations for each state in the list
     results[state + "_min_month"] = min_month
     print("--------------------------")
     
-    json.dump(results, open("/Users/jasonharmon/Documents/DATA 5500/covid/results.json", "w"), indent=1) #dump results
+    json.dump(results, open(filepath + "/results.json", "w"), indent=1) #dump results

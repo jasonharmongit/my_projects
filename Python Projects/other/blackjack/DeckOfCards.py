@@ -1,3 +1,7 @@
+"""
+Used in play_game.py
+"""
+
 import random
 
 

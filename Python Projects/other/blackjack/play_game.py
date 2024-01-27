@@ -1,3 +1,9 @@
+"""
+Oct, 2022
+A project built for one of the Python courses I took at USU. This was my first experience with Python Classes, and object-oriented
+programming in general. As the name suggests, the program allows the user to play a very simple version of Blackjack.
+"""
+
 from DeckOfCards import DeckOfCards
 import random
 

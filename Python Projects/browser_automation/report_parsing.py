@@ -1,3 +1,13 @@
+"""
+July, 2023
+This was my first attempt ever in browser automation. Our team had hundreds of reports inside a SAP BusinessObjects application that
+could be run in a browser. We wanted to get certain data from the reports that could not be obtained from the backend, nor even by
+copy/paste. The idea for this program was to navigate through the list of reports, extracting the data from the HTML of the iframe.
+I was able to get the program to successfully extract the data from a single report, but didn't have enough time to work in the 
+navigation before the project was scaled down and closed. The code is quite rough and manual, but taught me a lot about Selenium,
+automation, algorithms, and object-oriented programming.
+"""
+
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
@@ -51,9 +61,11 @@ class Driver():
         # webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()))
         # driver = webdriver.Chrome()
         self._driver.implicitly_wait(10)
-        self._driver.get('https://bobi.churchofjesuschrist.org/BOE/BI')
+        url = '' # removed url for privacy
+        self._driver.get(url)
         time.sleep(5)
-        self._driver.find_element(By.ID,'okta-signin-username').send_keys("jasondeanharmon")
+        username = ''
+        self._driver.find_element(By.ID,'okta-signin-username').send_keys(username)
         time.sleep(1)
         self._driver.find_element(By.ID,'okta-signin-submit').click()
         time.sleep(2)
@@ -77,16 +89,16 @@ class Driver():
         # click "Public Folders" NOTE: the ID and XPATH was changing with every reload
         self._driver.find_element(By.XPATH,'//li[@data-ttc-id="treeItem-Public Folders"]').click()
 
-        first_folder = '"Mission"'
+        first_folder = '""'
         self._driver.find_element(By.XPATH,'//*[@title={}]'.format(first_folder)).click()
 
-        second_folder = '"David\'s Reports"'
+        second_folder = '""'
         self._driver.find_element(By.XPATH,'//*[@title={}]'.format(second_folder)).click()
 
         # TODO: figure out how to make the scrolling function reusable to look in other folders
         #scroll and right click on given report:
         action = ActionChains(self._driver)
-        report1 = '"Missionary Department Statistical Report V2"'
+        report1 = '""'
 
         while True:
             try:
@@ -212,14 +224,4 @@ class Driver():
         print('Success')
           
 d = Driver()
-# d.login()
-# input("press enter")
-# d.connect()
-# d.nav_to_report()
-# input("press enter")
-# time.sleep(3)
-d.connect()
-d.open_report()
-queries = d.retrieve()
-d.to_csv("CC Sr Miss infield MTC OnLeave")
 

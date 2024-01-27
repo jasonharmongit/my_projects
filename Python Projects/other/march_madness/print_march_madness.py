@@ -1,3 +1,11 @@
+"""
+May, 2023
+A project built for one of the Python courses I took at USU. I wanted to use predictions made by the winner of the 2023 NCAA Men's 
+March Madness Kaggle competition to actually build out a visual bracket. This was the first time I used recursion in a (somewhat) 
+practical application. To accomplish this, I recursively created a hierarchy of "Team" objects to populate a binary search tree,
+used networkx to turn that into a directed graph, then visualized it with matplotlib.
+"""
+
 from full_print_tree import *
 import json
 import networkx as nx
@@ -30,8 +38,9 @@ midwest_teams = ["Houston", "Texas", "Xavier", "Indiana", "Miami FL", "Iowa St",
 west_teams = ["Kansas", "UCLA", "Gonzaga", "Connecticut", "St Mary's CA", "TCU", "Northwestern", "Arkansas", "Illinois", "Boise St", "Arizona St", "VCU", "Iona", "Grand Canyon", "UNC Asheville", "Howard"]
 regions = [south_teams, east_teams, midwest_teams, west_teams]
 
-preds_dct = json.load(open('/Users/jasonharmon/Documents/DATA 5500/march_madness/march_madness_data/preds.json', 'r'))
-team_ids_dct = json.load(open('/Users/jasonharmon/Documents/DATA 5500/march_madness/march_madness_data/team_ids.json', 'r'))
+data_filepath = ''
+preds_dct = json.load(open(data_filepath + '/preds.json', 'r'))
+team_ids_dct = json.load(open(data_filepath + '/team_ids.json', 'r'))
 all_teams_dct = {}
 
 rid = 1
@@ -135,7 +144,8 @@ plt.figure(figsize=(full_width, full_height))
 nx.draw_networkx(g, pos, labels=labels)
 edge_labels = nx.get_edge_attributes(g,'weight')
 nx.draw_networkx_edge_labels(g, pos, edge_labels=edge_labels)
-plt.savefig("/Users/jasonharmon/Documents/DATA 5500/march_madness/full_bracket.png")
+filepath = ''
+plt.savefig(filepath + "/full_bracket.png")
 
 print("Predicted championship:", root.team1.name, "vs", root.team2.name)
 print("Predicted winner:", root.winner.name)

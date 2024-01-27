@@ -1,3 +1,10 @@
+"""
+Dec, 2022
+A project built for one of the Python courses I took at USU. This program calls an API with historical stock market prices in JSON format, 
+then applies basic financial strategies (Simple Moving Average, Mean Reversion, and Bollinger Bands) to algorithmically "trade" the stocks, 
+finally calculating the returns and results.
+"""
+
 import requests
 import json
 import time
@@ -21,7 +28,8 @@ def create_data(tickers):
         
         print(req_dict[time_key][date_key][adj_close_key])
         
-        csv_fil = open("/Users/jasonharmon/Desktop/Python Projects/DATA 5500/stock_trading/" + ticker + ".csv", "w")
+        filepath = ''
+        csv_fil = open(filepath + "/stock_trading/" + ticker + ".csv", "w")
         
         lst = []
         
@@ -48,12 +56,12 @@ def append_data():
         req_dict = json.loads(req.text)
         
         time_key = "Time Series (Daily)"
-        date_key = "2022-11-18"
+        date_key = "2022-11-18" # for example
         adj_close_key = "5. adjusted close"
         
         print(req_dict[time_key][date_key][adj_close_key])
         
-        csv_fil = open("/Users/jasonharmon/Desktop/Python Projects/DATA 5500/stock_trading/" + ticker + ".csv", "r")
+        csv_fil = open(filepath + ticker + ".csv", "r")
         
         last_dt = csv_fil.readlines()[-1].split(",")[0]
         csv_fil.close
@@ -68,7 +76,7 @@ def append_data():
         
         lst.reverse()
         
-        csv_fil = open("/Users/jasonharmon/Desktop/Python Projects/DATA 5500/stock_trading/" + ticker + ".csv", "a")
+        csv_fil = open(filepath + ticker + ".csv", "a")
         
         for l in lst:
             csv_fil.write(l)
@@ -234,7 +242,7 @@ def BollingerBands(prices):
 #save results to a new json file function
 import json     
 def SaveResults(results):
-    json.dump(results, open("/Users/jasonharmon/Desktop/Python Projects/DATA 5500/stock_trading/finalresults.json", "w"), indent = 4)
+    json.dump(results, open(filepath + "/finalresults.json", "w"), indent = 4)
   
   
 tickers = ["AAPL"] #"GOOG", "ADBE"] # "AMZN", "JBLU", "MCD", "MNST", "SPXL", "TQQQ", "TSLA"]
@@ -246,7 +254,7 @@ create_data(tickers)
 #iterate through each of the tickers in the list, recreating the prices list for each ticker
 for ticker in tickers:
     
-    prices = [round(float(line.split(",")[1]), 2) for line in open("/Users/jasonharmon/Desktop/Python Projects/DATA 5500/stock_trading/" + ticker + ".csv", "r").readlines()]
+    prices = [round(float(line.split(",")[1]), 2) for line in open(filepath + "/stock_trading/" + ticker + ".csv", "r").readlines()]
     
     #print results from Simple Moving Average Strategy
     SMAprof, SMAfirstaction, SMAfirstpos, SMAreturns = SimpleMovingAverage(prices)
